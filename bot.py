@@ -67,14 +67,10 @@ async def answer(bot, message):
                     frequency_penalty=0.1,
                     presence_penalty = 0.0,
                 )
-                btn=[
-                        [InlineKeyboardButton(text=f"Updates Channel", url=f'https://telegram.me/{UPDATES_CHANNEL}')],
-                        [InlineKeyboardButton(text=f"Owner", url=f'https://telegram.me/{OWNER_USERNAME}')]
-                    ]
                 reply_markup=InlineKeyboardMarkup(btn)
                 footer_credit = f"Join My Updates Channel 🦋 @{UPDATES_CHANNEL} 🦋 \nOwner 🦋 @{OWNER_USERNAME} 🦋"
                 response = response.choices[0].text 
-                await bot.send_message(AI_LOGS, text=f"⚡️⚡️#AI_Query \n\n• A user named **{message.from_user.mention}** with user id - `{user_id}`. Asked me this query...\n\n══❚█══Q   U   E   R   Y══█❚══\n\n\n[Q྿.]**{message}**\n\n👇Here is what i responded:\n:-`{response}`\n\n\n❚═USER ID═❚═• `{user_id}` \n❚═USER Name═❚═• `{message.from_user.mention}` \n\n🗃️" , reply_markup = reply_markup )
+                await bot.send_message(AI_LOGS, text=f"⚡️⚡️#AI_Query \n\n• A user named **{message.from_user.mention}** with user id - `{user_id}`. Asked me this query...\n\n══❚█══Q   U   E   R   Y══█❚══\n\n\n[Q྿.]**{message}**\n\n👇Here is what i responded:\n:-`{response}`\n\n\n❚═USER ID═❚═• `{user_id}` \n❚═USER Name═❚═• `{message.from_user.mention}` \n\n🗃️")
                 await message.reply(f"{response}\n\n\n{footer_credit}")
             except Exception as error:
                 print(error)
