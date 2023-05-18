@@ -1,9 +1,13 @@
-FROM python:3.9
+FROM python:3.8-slim-buster
 
-WORKDIR /app
+RUN apt update && apt upgrade -y
+RUN apt install git -y
+COPY requirements.txt /requirements.txt
 
-COPY requirements.txt /app/
-RUN pip3 install -r requirements.txt
-COPY . /app
+RUN cd /
+RUN pip3 install -U pip && pip3 install -U -r requirements.txt
+RUN mkdir /AI_BOT
+WORKDIR /AI_BOT
 
-CMD python3 bot.py
+COPY start.sh /start.sh
+CMD ["/bin/bash", "/start.sh"]
