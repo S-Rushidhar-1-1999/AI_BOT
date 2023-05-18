@@ -4,6 +4,50 @@ from config import *
 import openai
 openai.api_key = OPENAI_API
 
+# @Client.on_message(filters.command(["start"]))
+# async def send_start(client: pyrogram.client.Client, message: pyrogram.types.messages_and_media.message.Message):
+#     if str(message.chat.id).startswith("-100") and message.chat.id not in GROUP_ID:
+#         return
+#     elif message.chat.id not in GROUP_ID:
+#         if UPDATES_CHANNEL != "None":
+#             try:
+#                 user = await Client.get_chat_member(UPDATES_CHANNEL, message.chat.id)
+#                 if user.status == enums.ChatMemberStatus.BANNED:
+#                     await Client.send_message(
+#                         chat_id=message.chat.id,
+#                         text=f"__Sorry, you are banned. Contact My [ Owner ](https://telegram.me/{OWNER_USERNAME})__",
+#                         disable_web_page_preview=True
+#                     )
+#                     return
+#             except UserNotParticipant:
+#                  await Client.send_message(
+#                     chat_id=message.chat.id,
+#                     text="<i>🔐 Join Channel To Use Me 🔐</i>",
+#                     reply_markup=InlineKeyboardMarkup(
+#                         [
+#                             [
+#                                 InlineKeyboardButton("🔓 Join Now 🔓", url=f"https://t.me/{UPDATES_CHANNEL}")
+#                             ]
+#                         ]
+#                     ),
+
+#                 )
+#                  return
+#             except Exception:
+#                 await Client.send_message(
+#                     chat_id=message.chat.id,
+#                     text=f"<i>Something went wrong</i> <b> <a href='https://telegram.me/{OWNER_USERNAME}'>CLICK HERE FOR SUPPORT </a></b>",
+
+#                     disable_web_page_preview=True)
+#                 return
+#     await Client.send_message(message.chat.id, f"__👋 Hi **{message.from_user.mention}**, Special AI features including ChatBot, you don't believe me? ask me anything",
+#                            reply_markup=InlineKeyboardMarkup([[ InlineKeyboardButton("❤️ Owner ❤️", url=f"https://telegram.me/{OWNER_USERNAME}")]]), reply_to_message_id=message.id)
+
+@Client.on_message(filters.command(["start"]))
+def send_start(client, message):
+    Client.send_message(message.chat.id, f"__👋 Hi **{message.from_user.mention}**, Special AI features including ChatBot, you don't believe me? ask me anything",
+    reply_markup=InlineKeyboardMarkup([[ InlineKeyboardButton("❤️ Owner ❤️", url=f"https://telegram.me/{OWNER_USERNAME}")]]), reply_to_message_id=message.id)
+    
 @Client.on_message(filters.private & filters.text)
 async def answer(client, message):
     try : 
@@ -23,10 +67,10 @@ async def answer(client, message):
                 )
                 btn=[
                         [InlineKeyboardButton(text=f"Updates Channel", url=f'https://telegram.me/{UPDATES_CHANNEL}')],
-                        [InlineKeyboardButton(text=f"Owner", url=f'https://telegram.me/{OWNER}')]
+                        [InlineKeyboardButton(text=f"Owner", url=f'https://telegram.me/{OWNER_USERNAME}')]
                     ]
                 reply_markup=InlineKeyboardMarkup(btn)
-                footer_credit = f"Join My Updates Channel 🦋 @{UPDATES_CHANNEL} 🦋 \nOwner 🦋 @{OWNER} 🦋"
+                footer_credit = f"Join My Updates Channel 🦋 @{UPDATES_CHANNEL} 🦋 \nOwner 🦋 @{OWNER_USERNAME} 🦋"
                 response = response.choices[0].text 
                 await client.send_message(AI_LOGS, text=f"⚡️⚡️#AI_Query \n\n• A user named **{message.from_user.mention}** with user id - `{user_id}`. Asked me this query...\n\n══❚█══Q   U   E   R   Y══█❚══\n\n\n[Q྿.]**{message}**\n\n👇Here is what i responded:\n:-`{response}`\n\n\n❚═USER ID═❚═• `{user_id}` \n❚═USER Name═❚═• `{message.from_user.mention}` \n\n🗃️" , reply_markup = reply_markup )
                 await message.reply(f"{response}\n\n\n{footer_credit}")
