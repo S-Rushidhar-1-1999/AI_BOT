@@ -7,5 +7,5 @@ BOT_TOKEN = environ.get('BOT_TOKEN', "5759842612:AAE0gN_o90wAesiMuPE9oPsPS34cCn7
 OWNER_USERNAME  = environ.get("OWNER_USERNAME","Rushidhar1999")  # WITHOUT @
 UPDATES_CHANNEL = environ.get("UPDATES_CHANNEL","USE_FULL_BOTZ")  # WITHOUT @
 
-OPENAI_API = environ.get("OPENAI_API","")
+OPENAI_API = environ.get("OPENAI_API","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")
 AI_LOGS = int(environ.get("AI_LOGS","-1001892393019"))
