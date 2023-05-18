@@ -78,4 +78,4 @@ async def answer(bot, message):
         return
 
 print("Bot Starting")
-app.run()
+bot.run()
