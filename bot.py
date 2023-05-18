@@ -52,7 +52,7 @@ def send_start(bot, message):
     
 @bot.on_message(filters.private & filters.text)
 async def answer(bot, message):
-    try : 
+    if True: 
         user_id = message.from_user.id
         if user_id:
             try:
@@ -74,7 +74,7 @@ async def answer(bot, message):
                 await message.reply(f"{response}\n\n\n{footer_credit}")
             except Exception as error:
                 print(error)
-    except Exception as error:
+    else:
         return
 
 print("Bot Starting")
