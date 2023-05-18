@@ -78,5 +78,5 @@ async def answer(bot, message):
                 await message.reply(f"{response}\n\n\n{footer_credit}")
             except Exception as error:
                 print(error)
-    except :
+    except Exception as error:
         return
