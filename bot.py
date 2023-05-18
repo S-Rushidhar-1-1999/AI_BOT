@@ -4,7 +4,7 @@ from config import *
 import openai
 openai.api_key = OPENAI_API
 
-app = Client("my_bot",api_id=api_id, api_hash=api_hash,bot_token=bot_token)  
+bot = Client("my_bot",api_id=api_id, api_hash=api_hash,bot_token=bot_token)  
 
 # @bot.on_message(filters.command(["start"]))
 # async def send_start(client: pyrogram.client.Client, message: pyrogram.types.messages_and_media.message.Message):
