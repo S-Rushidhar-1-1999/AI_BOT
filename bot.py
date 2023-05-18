@@ -76,3 +76,6 @@ async def answer(bot, message):
                 print(error)
     except Exception as error:
         return
+
+print("Bot Starting")
+app.run()
