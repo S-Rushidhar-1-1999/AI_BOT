@@ -1,4 +1,5 @@
 import os
+import pyrogram
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram import Client, filters
 from config import *
@@ -65,11 +66,12 @@ async def answer(bot, message):
                 user_id = message.from_user.id
                 await bot.send_message(lol, f"entered {users_message} {user_id}")
                 response = openai.Completion.create(
-                    model = "text-davinci-003",
+                    engine = "text-davinci-003",
                     prompt = users_message,
                     temperature = 0.5, 
                     max_tokens = 1000,
                     top_p=1,
+                    n=1,
                     frequency_penalty=0.1,
                     presence_penalty = 0.0,
                 )
