@@ -63,6 +63,7 @@ async def answer(bot, message):
                 await bot.send_message(lol, f"entered try")
                 users_message = message.text
                 user_id = message.from_user.id
+                await bot.send_message(lol, f"entered {users_message} {user_id}")
                 response = openai.Completion.create(
                     model = "text-davinci-003",
                     prompt = users_message,
