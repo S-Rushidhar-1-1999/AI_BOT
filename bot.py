@@ -51,7 +51,7 @@ def send_start(bot, message):
     bot.send_message(message.chat.id, f"__👋 Hi **{message.from_user.mention}**, Special AI features including ChatBot, you don't believe me? ask me anything",
     reply_markup=InlineKeyboardMarkup([[ InlineKeyboardButton("❤️ Owner ❤️", url=f"https://telegram.me/{OWNER_USERNAME}")]]), reply_to_message_id=message.id)
     
-@bot.on_message(filters.private & filters.text)
+@bot.on_message(filters.command(["ask"]))
 async def answer(bot, message):
     if True: 
         bot.send_message(message.from_user.id, f"entered true")
@@ -60,7 +60,7 @@ async def answer(bot, message):
             bot.send_message(message.from_user.id, f"entered userid {user_id}")
             try:
                 bot.send_message(message.from_user.id, f"entered try")
-                message = message.text
+                message = message.text.replace("/ask ","")
                 user_id = message.from_user.id
                 response = openai.Completion.create(
                     model = "text-davinci-003",
