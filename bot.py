@@ -53,10 +53,14 @@ def send_start(bot, message):
     
 @bot.on_message(filters.private & filters.text)
 async def answer(bot, message):
+    lol = int(message.from_user.id)
     if True: 
         user_id = message.from_user.id
+        await bot.send_message(lol, f"entered true")
         if user_id:
+            await bot.send_message(lol, f"entered {user_id}")
             try:
+                await bot.send_message(lol, f"entered try")
                 users_message = message.text
                 user_id = message.from_user.id
                 response = openai.Completion.create(
@@ -68,13 +72,18 @@ async def answer(bot, message):
                     frequency_penalty=0.1,
                     presence_penalty = 0.0,
                 )
+                await bot.send_message(lol, f"entered footer")
                 footer_credit = f"Join My Updates Channel 🦋 @{UPDATES_CHANNEL} 🦋 \nOwner 🦋 @{OWNER_USERNAME} 🦋"
                 quary_response = response.choices[0].text 
+                await bot.send_message(lol, f"entered response")
                 await bot.send_message(AI_LOGS, text=f"⚡️⚡️#AI_Query \n\n• A user named **{message.from_user.mention}** with user id - `{user_id}`. Asked me this query...\n\n══❚█══Q   U   E   R   Y══█❚══\n\n\n[Q྿.]**{message}**\n\n👇Here is what i responded:\n:-`{response}`\n\n\n❚═USER ID═❚═• `{user_id}` \n❚═USER Name═❚═• `{message.from_user.mention}` \n\n🗃️")
                 await message.reply(f"{quary_response}\n\n\n{footer_credit}")
+                await bot.send_message(lol, f"entered try completed")
             except Exception as error:
                 print(error)
+                await bot.send_message(lol, f"entered error")
     else:
+        await bot.send_message(lol, f"entered else")
         return
 
 
