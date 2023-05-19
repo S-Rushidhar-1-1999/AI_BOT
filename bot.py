@@ -51,7 +51,7 @@ def send_start(bot, message):
     bot.send_message(message.chat.id, f"__👋 Hi **{message.from_user.mention}**, Special AI features including ChatBot, you don't believe me? ask me anything",
     reply_markup=InlineKeyboardMarkup([[ InlineKeyboardButton("❤️ Owner ❤️", url=f"https://telegram.me/{OWNER_USERNAME}")]]), reply_to_message_id=message.id)
     
-@bot.on_message(filters.command(["ask"]))
+@bot.on_message(filters.command(["ask"] & filters.private))
 async def answer(bot, message):
     if True: 
         bot.send_message(message.from_user.id, f"entered true")
