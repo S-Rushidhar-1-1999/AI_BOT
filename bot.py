@@ -51,21 +51,18 @@ def send_start(bot, message):
     bot.send_message(message.chat.id, f"__👋 Hi **{message.from_user.mention}**, Special AI features including ChatBot, you don't believe me? ask me anything",
     reply_markup=InlineKeyboardMarkup([[ InlineKeyboardButton("❤️ Owner ❤️", url=f"https://telegram.me/{OWNER_USERNAME}")]]), reply_to_message_id=message.id)
     
-@bot.on_message(filters.command(["ask"]))
+@bot.on_message(filters.private & filters.text)
 async def answer(bot, message):
-    lol = message.chat.id
-    if True: 
-        await bot.send_message(lol, f"entered true")
-        user_id = message.chat.id
+    lol = message.from_user.id
+    if AI == True: 
+        user_id = message.from_user.id
         if user_id:
-            await bot.send_message(lol, f"entered userid {user_id}")
             try:
-                await bot.send_message(lol, f"entered try")
-                message = message.text.replace("/ask ","")
+                users_message = message.text
                 user_id = message.from_user.id
                 response = openai.Completion.create(
                     model = "text-davinci-003",
-                    prompt = message,
+                    prompt = users_message,
                     temperature = 0.5, 
                     max_tokens = 1000,
                     top_p=1,
@@ -73,16 +70,14 @@ async def answer(bot, message):
                     presence_penalty = 0.0,
                 )
                 footer_credit = f"Join My Updates Channel 🦋 @{UPDATES_CHANNEL} 🦋 \nOwner 🦋 @{OWNER_USERNAME} 🦋"
-                response = response.choices[0].text 
-                await bot.send_message(lol, f"response completed")
+                quary_response = response.choices[0].text 
                 await bot.send_message(AI_LOGS, text=f"⚡️⚡️#AI_Query \n\n• A user named **{message.from_user.mention}** with user id - `{user_id}`. Asked me this query...\n\n══❚█══Q   U   E   R   Y══█❚══\n\n\n[Q྿.]**{message}**\n\n👇Here is what i responded:\n:-`{response}`\n\n\n❚═USER ID═❚═• `{user_id}` \n❚═USER Name═❚═• `{message.from_user.mention}` \n\n🗃️")
-                await bot.send_message(lol, f"{response}\n\n\n{footer_credit}")
+                await message.reply(f"{quary_response}\n\n\n{footer_credit}")
             except Exception as error:
                 print(error)
-                bot.send_message(lol, f"entered error")
     else:
-        bot.send_message(lol, f"entered else")
         return
+
 
 print("Bot Starting")
 bot.run()
