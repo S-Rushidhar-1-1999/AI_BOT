@@ -1,4 +1,4 @@
-pyrogram
+pyrogram==2.0.35
 tgcrypto
 openai
 Flask==2.2.2
