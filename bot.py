@@ -53,8 +53,7 @@ def send_start(bot, message):
     
 @bot.on_message(filters.private & filters.text)
 async def answer(bot, message):
-    lol = message.from_user.id
-    if AI == True: 
+    if True: 
         user_id = message.from_user.id
         if user_id:
             try:
