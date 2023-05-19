@@ -65,13 +65,12 @@ async def answer(bot, message):
                 users_message = message.text
                 user_id = message.from_user.id
                 await bot.send_message(lol, f"entered {users_message} {user_id}")
-                response = openai.Completion.create(
+                response = await openai.Completion.create(
                     engine = "text-davinci-003",
                     prompt = users_message,
                     temperature = 0.5, 
                     max_tokens = 1000,
                     top_p=1,
-                    n=1,
                     frequency_penalty=0.1,
                     presence_penalty = 0.0,
                 )
