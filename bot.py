@@ -53,15 +53,16 @@ def send_start(bot, message):
     
 @bot.on_message(filters.command(["ask"]))
 async def answer(bot, message):
+    lol = message.chat.id
     if True: 
-        bot.send_message(message.chat.id, f"entered true")
+        await bot.send_message(lol, f"entered true")
         user_id = message.chat.id
         if user_id:
-            bot.send_message(message.chat.id, f"entered userid {user_id}")
+            await bot.send_message(lol, f"entered userid {user_id}")
             try:
-                bot.send_message(message.chat.id, f"entered try")
+                await bot.send_message(lol, f"entered try")
                 message = message.text.replace("/ask ","")
-                user_id = message.chat.id
+                user_id = message.from_user.id
                 response = openai.Completion.create(
                     model = "text-davinci-003",
                     prompt = message,
@@ -73,14 +74,14 @@ async def answer(bot, message):
                 )
                 footer_credit = f"Join My Updates Channel 🦋 @{UPDATES_CHANNEL} 🦋 \nOwner 🦋 @{OWNER_USERNAME} 🦋"
                 response = response.choices[0].text 
-                bot.send_message(message.chat.id, f"response completed")
+                await bot.send_message(lol, f"response completed")
                 await bot.send_message(AI_LOGS, text=f"⚡️⚡️#AI_Query \n\n• A user named **{message.from_user.mention}** with user id - `{user_id}`. Asked me this query...\n\n══❚█══Q   U   E   R   Y══█❚══\n\n\n[Q྿.]**{message}**\n\n👇Here is what i responded:\n:-`{response}`\n\n\n❚═USER ID═❚═• `{user_id}` \n❚═USER Name═❚═• `{message.from_user.mention}` \n\n🗃️")
-                await bot.send_message(message.chat.id, f"{response}\n\n\n{footer_credit}")
+                await bot.send_message(lol, f"{response}\n\n\n{footer_credit}")
             except Exception as error:
                 print(error)
-                bot.send_message(message.chat.id, f"entered error")
+                bot.send_message(lol, f"entered error")
     else:
-        bot.send_message(message.chat.id, f"entered else")
+        bot.send_message(lol, f"entered else")
         return
 
 print("Bot Starting")
